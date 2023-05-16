@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Dog;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        Dog::factory()->count(3)->state(new Sequence(
+            ['name' => 'George', 'breed' => 'collie'],
+            ['name' => 'Dogbert', 'breed' => 'something else'],
+            ['name' => 'Sir Herds-a-lot', 'breed' => 'border collie']
+        ))->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => 'Guy Smiley',
+            'email' => 'guy@smiley.com',
+            'password' => Hash::make('password'),
+        ]);
     }
 }
